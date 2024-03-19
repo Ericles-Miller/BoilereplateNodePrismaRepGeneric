@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1710810856122,
+      "tag": "0000_luxuriant_radioactive_man",
+      "breakpoints": true
+    }
+  ]
+}

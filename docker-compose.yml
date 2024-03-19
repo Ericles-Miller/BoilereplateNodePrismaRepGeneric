@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: boilerplatePostgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: bdTeste
+      PGDATA: /data/postgres
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+    driver: local
