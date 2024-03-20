@@ -1,15 +1,19 @@
 import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { Client } from "pg";
+import pg from 'pg';
 
 
-const client = new Client({
+const client = new pg.Client({
   host: process.env.DB_HOST,
-  port: NUMBER(process.env.DB_PORT),
-  user: "postgres",
-  password: "password",
-  database: "db_name",
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USERNAME,
+  password: 'docker',
+  database: process.env.DB_NAME,
 });
 
-await client.connect();
-const db = drizzle(client);
+client.connect().then(() => {
+  console.log('Connect successfully');
+}).catch(((error) => console.log(error)));
+
+export const database = drizzle(client);
+

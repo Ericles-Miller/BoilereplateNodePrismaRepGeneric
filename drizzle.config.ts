@@ -1,5 +1,4 @@
 import 'dotenv/config';
-import type { Config } from 'drizzle-kit';
 
 export default {
   schema: './src/Database/schema.ts',
@@ -11,4 +10,5 @@ export default {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
   },
-} satisfies Config;
+}
+
