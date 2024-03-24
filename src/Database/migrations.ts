@@ -1,11 +1,10 @@
-import 'dotenv/config';
-import { migrate } from 'drizzle-orm/node-postgres/migrator';
-import { client, db } from './db';
+import "dotenv/config";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
+import { db } from "./db";
 
-
-async function migrateData() {
-  await migrate(db, { migrationsFolder: '../../drizzle' });
-  await client.end();
+async function main() {
+  await migrate(db, { migrationsFolder: "drizzle/migrations" });
+  process.exit(0);
 }
 
-migrateData();
+main();

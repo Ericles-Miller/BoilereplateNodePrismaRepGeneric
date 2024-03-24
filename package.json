@@ -35,8 +35,9 @@
   },
   "scripts": {
     
-    "migration:generate": "drizzle-kit generate:pg",
-    "migration:push" : "ts-node-dev src/Database/migrations.ts",
+    "migration:generate": "drizzle-kit generate:pg --config=drizzle.config.ts",
+    "migration:push": "drizzle-kit push:pg --config=drizzle.config.ts",
+    "studio": "drizzle-kit studio",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only  --ignore-watch node_modules --respawn src/shared/infra/http/server.ts "
   }
 }

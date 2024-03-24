@@ -1,14 +1,16 @@
-version: '3'
-
+version: "3.9"
 services:
-  db:
+  pantry-tracker-db:
     image: postgres
     restart: always
-    volumes:
-     - pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_PASSWORD: docker
+    container_name: pantry-tracker-db
     ports:
-      - 5432:5432
+      - 5435:5432
+    environment:
+      POSTGRES_PASSWORD: 18er0821
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+
 volumes:
-  pgdata:
+  postgres:

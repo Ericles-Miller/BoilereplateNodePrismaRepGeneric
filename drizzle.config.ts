@@ -1,19 +1,16 @@
-import 'dotenv/config'; // make sure to install dotenv package
-import type { Config } from 'drizzle-kit';
+import "dotenv/config";
+import type { Config } from "drizzle-kit";
 
 export default {
-  driver: 'pg',
-  out: './src/drizzle',
-  schema: './src/drizzle/schema.ts',
+  schema: "./src/Database/schema.ts",
+  out: "./drizzle/migrations",
+  driver: "pg",
   dbCredentials: {
-    host: process.env.DB_HOST!,
-    port: Number(process.env.DB_PORT!),
-    user: process.env.DB_USERNAME!,
-    password: process.env.DB_PASSWORD!,
-    database: process.env.DB_NAME!,
+    host: 'localhost', //process.env.DB_HOST!,
+    password: '18er0821', //process.env.DB_PASSWORD,
+    database: 'test', //process.env.DB_NAME!,
+    port: 5435, //Number(process.env.DB_PORT),
+    user: 'postgres', // process.env.DB_USERNAME,
   },
-  // Print all statements
-  verbose: true,
-  // Always ask for confirmation
-  strict: true,
 } satisfies Config;
+
