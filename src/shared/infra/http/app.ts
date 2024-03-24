@@ -2,7 +2,6 @@
 import "reflect-metadata";
 import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
-import { database } from "Database/db";
 import { AppError } from "@shared/errors/AppError";
 
 import { router } from "./router";
@@ -10,8 +9,6 @@ import { router } from "./router";
 
 
 export const app = express();
-database;
-
 
 
 app.use(express.json());
