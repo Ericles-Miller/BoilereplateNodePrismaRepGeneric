@@ -1,31 +1,31 @@
-import { Drizzle, Entity } from "drizzle-orm";
+import { Post } from "Entities/Post";
 import { IBaseRepository } from "./IBaseRepository";
 import { injectable } from "inversify";
+import { Users } from "Entities/User";
+import { Drizzle  } from "drizzle-orm";
 
 @injectable()
 export class BaseRepository<T> implements IBaseRepository<T> {
-  protected readonly drizzle: Drizzle;
-  protected readonly entity: Entity<T>;
+  protected readonly repository: Drizzle<Users | Post>;
 
-  constructor(drizzle: Drizzle, entity: Entity<T>) {
-    this.drizzle = drizzle;
-    this.entity = entity;
+  constructor(repository: Drizzle<Users | Post>) {
+    this.repository = repository;
   }
 
   async findById(id: string): Promise<T | null> {
-    return await this.entity.findOne({ where: { id } });
+    return await this.repository.findOne({ where: { id } });
   }
 
   async create(data: T): Promise<void> {
-    await this.entity.create(data);
+    await this.repository.create(data);
   }
 
   async listAll(): Promise<T[]> {
-    return await this.entity.findMany();
+    return await this.repository.findMany();
   }
 
   async update(id: string, data: Partial<T>): Promise<T | null> {
-    await this.entity.update({ where: { id }, data });
+    await this.repository.update({ where: { id }, data });
     return await this.findById(id);
   }
 }

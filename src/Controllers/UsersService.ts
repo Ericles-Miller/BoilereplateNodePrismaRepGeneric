@@ -15,7 +15,7 @@ interface IRequestDTO {
 export class UsersService {
   constructor(
     @inject(UsersRepository)
-    private usersRepository: IUsersRepository,
+    private readonly usersRepository: IUsersRepository,
   ) {}
 
   async create({email, name,password }: IRequestDTO) : Promise<void> {    

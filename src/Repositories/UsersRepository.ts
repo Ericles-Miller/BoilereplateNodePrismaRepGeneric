@@ -1,21 +1,21 @@
 import { Users } from "Entities/User";
 import { BaseRepository } from "./BaseRepository";
 import { IUsersRepository } from "./IUsersRepository";
-import { Drizzle, Entity } from "drizzle-orm";
 import { inject, injectable } from "inversify";
+import { users } from '../Database/schema';
+
 
 @injectable()
 export class UsersRepository extends BaseRepository<Users> implements IUsersRepository {
   constructor(
-    @inject(Drizzle)
-    drizzle: Drizzle,
-    @inject(Entity)
-    entity: Entity<Users>) {
-    super(drizzle, entity);
+    @inject("users")
+    private readonly users : Users
+  ) {
+    super(users); 
   }
 
   async checkEmailAlreadyExist(email: string): Promise<Users | null> {
-    const user =  await this.entity.findOne({ where: { email } });
+    const user =  await this.repository.findOne({ where: { email } });
     return user
   }
    
