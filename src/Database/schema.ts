@@ -20,3 +20,8 @@
     enable: text('enable').default('true'),
     authorId: serial("author_id").references(() => users.id)
   });
+
+
+  export interface IRepositoryConfig {
+    model: typeof users | typeof posts,
+  }
