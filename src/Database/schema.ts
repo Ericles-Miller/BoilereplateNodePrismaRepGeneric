@@ -11,7 +11,7 @@
   });
 
 
-  export const post = pgTable('post', {
+  export const posts = pgTable('post', {
     id: serial('id').primaryKey(),
     name: text('name'),
     description: text('description'),
