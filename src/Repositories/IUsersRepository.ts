@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-empty-interface */
-
+import { Users } from 'Entities/User';
 import { IBaseRepository } from './IBaseRepository';
 
-export interface IUserRepository extends IBaseRepository<Users> {
-  // add somente especifica do user
-  checkRegistrationAlreadyExist(registration: string) : Promise<Users | null>
-
+export interface IUsersRepository extends IBaseRepository<Users> {
+  checkEmailAlreadyExist(email: string) : Promise<Users | null>
 }
