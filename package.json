@@ -7,7 +7,6 @@
     "@neondatabase/serverless": "^0.9.0",
     "@types/uuid": "^9.0.8",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.30.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "genrate": "^0.0.11",
@@ -15,13 +14,13 @@
     "pg": "^8.11.3",
     "postgres": "^3.4.3",
     "reflect-metadata": "^0.2.1",
+    "typeorm": "^0.3.20",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
-    "drizzle-kit": "^0.20.14",
     "eslint": "^8.53.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.0.0",
@@ -34,7 +33,6 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    
     "users": "drizzle-kit generate:pg --config=drizzle.config.ts",
     "migration:push": "drizzle-kit push:pg --config=drizzle.config.ts",
     "studio": "drizzle-kit studio",

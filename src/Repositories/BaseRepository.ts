@@ -1,31 +1,31 @@
-import { Post } from "Entities/Post";
+import { Users } from "Entities/User";
 import { IBaseRepository } from "./IBaseRepository";
 import { injectable } from "inversify";
-import { Users } from "Entities/User";
-import { Drizzle  } from "drizzle-orm";
+import { DataSource, EntitySchema, FindOptionsWhere, Repository } from "typeorm";
+import { Post } from "Entities/Post";
 
 @injectable()
-export class BaseRepository<T> implements IBaseRepository<T> {
-  protected readonly repository: Drizzle<Users | Post>;
+export class BaseRepository<T extends Users | Post> implements IBaseRepository<T> {
+  protected readonly repository: Repository<T>;
 
-  constructor(repository: Drizzle<Users | Post>) {
-    this.repository = repository;
+  constructor(dataSource: DataSource, entity: EntitySchema<T>) {
+    this.repository = dataSource.getRepository<T>(entity);
   }
 
   async findById(id: string): Promise<T | null> {
-    return await this.repository.findOne({ where: { id } });
+    return await this.repository.findOneBy({ id } as FindOptionsWhere<T>)
   }
 
   async create(data: T): Promise<void> {
-    await this.repository.create(data);
+    await this.repository.save(data);
   }
 
   async listAll(): Promise<T[]> {
-    return await this.repository.findMany();
+    return await this.repository.find();
   }
 
-  async update(id: string, data: Partial<T>): Promise<T | null> {
-    await this.repository.update({ where: { id }, data });
-    return await this.findById(id);
+  async update(id: string, entity:T): Promise<void> {
+    const r = { id, ...entity }
+    await this.repository.save(r)
   }
 }
