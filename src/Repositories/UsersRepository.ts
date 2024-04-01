@@ -1,18 +1,25 @@
-import { Users, UserSchema } from "Entities/User";
-import { BaseRepository } from "./BaseRepository";
-import { IUsersRepository } from "./IUsersRepository";
-import { inject, injectable } from "inversify";
-import { AppDataSource } from "@shared/infra/database";
+import { inject, injectable } from 'inversify';
+
+import { PrismaClient, User } from '@prisma/client';
+
+import { BaseRepository } from './BaseRepository';
+import { IUsersRepository } from './IUsersRepository';
+
 
 @injectable()
-export class UsersRepository extends BaseRepository<Users> implements IUsersRepository {
-  constructor() {
-    super(AppDataSource, UserSchema);
+export class UsersRepository extends BaseRepository<User> implements IUsersRepository {
+  constructor(
+    @inject('PrismaClientUser')
+    private readonly prisma: PrismaClient,
+  ) {
+    super(prisma.user);
+  }
+  async checkEmailAlreadyExist(email: string): Promise<User | null> {
+    const user = await this.prisma.user.findFirst({
+      where: {email}
+    })
+
+    return user;
   }
 
-  async checkEmailAlreadyExist(email: string): Promise<Users | null> {
-    const user =  await this.repository.findOne({ where: { email } });
-    return user
-  }
-   
 }

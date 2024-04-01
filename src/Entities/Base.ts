@@ -1,17 +1,12 @@
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
 import {v4 as uuid} from 'uuid';
 
 export class Base {
-  @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column('createdAt')
   createdAt!: Date;
 
-  @Column('updateAt')
   updatedAt?: Date;
 
-  @Column('enable')
   enable!: boolean;
 
   constructor() {

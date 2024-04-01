@@ -1,9 +1,6 @@
-import { Base } from "Entities/Base";
-
-export interface IBaseRepository<T extends Base> {
-  findById(id: string) : Promise<T | null> ;
+export interface IBaseRepository<T> {
+  findById<T> (id: string) : Promise<T> ;
   create(data: T) : Promise<void>;
   listAll() : Promise<T[]>;
-  update(id: string, entity: T) : Promise<void>;
+  update<T>(id: string, data: T) : Promise<T>;
 }
-

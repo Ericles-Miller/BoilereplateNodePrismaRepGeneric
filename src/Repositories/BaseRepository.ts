@@ -1,31 +1,58 @@
-import { Users } from "Entities/User";
-import { IBaseRepository } from "./IBaseRepository";
 import { injectable } from "inversify";
-import { DataSource, EntitySchema, FindOptionsWhere, Repository } from "typeorm";
-import { Post } from "Entities/Post";
+
+import { createDecoratorProxy } from "Entities/Decorator";
+import { IBaseRepository } from "./IBaseRepository";
 
 @injectable()
-export class BaseRepository<T extends Users | Post> implements IBaseRepository<T> {
-  protected readonly repository: Repository<T>;
-
-  constructor(dataSource: DataSource, entity: EntitySchema<T>) {
-    this.repository = dataSource.getRepository<T>(entity);
+export class BaseRepository<T> extends createDecoratorProxy<T>([
+  "aggregate",
+  "count",
+  "create",
+  "createMany",
+  "delete",
+  "findFirst",
+  "findFirstOrThrow",
+  "findMany",
+  "findUnique",
+  "findUniqueOrThrow",
+  "update",
+  "updateMany",
+  "upsert",
+]) {
+  constructor(private target: T) {
+    super(target);
   }
 
-  async findById(id: string): Promise<T | null> {
-    return await this.repository.findOneBy({ id } as FindOptionsWhere<T>)
+  async findById<T>(id: string): Promise<T> {
+    const context = await this.repository.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return context;
   }
 
   async create(data: T): Promise<void> {
-    await this.repository.save(data);
+    
+    await this.repository.create({
+      data,
+    });
   }
 
   async listAll(): Promise<T[]> {
-    return await this.repository.find();
+    const context = await this.repository.findMany();
+    return context;
   }
 
-  async update(id: string, entity:T): Promise<void> {
-    const r = { id, ...entity }
-    await this.repository.save(r)
+  async update<T>(id: string, data: T): Promise<T> {
+    const context = await this.repository.update({
+      where: {
+        id,
+      },
+      data,
+    });
+
+    return context;
   }
 }

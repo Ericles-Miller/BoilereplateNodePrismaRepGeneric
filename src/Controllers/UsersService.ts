@@ -14,18 +14,20 @@ interface IRequestDTO {
 @injectable()
 export class UsersService {
   constructor(
-    @inject(UsersRepository)
-    private readonly usersRepository: IUsersRepository,
+    @inject('IUsersRepository')
+    private usersRepository: IUsersRepository,
   ) {}
 
   async create({email, name,password }: IRequestDTO) : Promise<void> {    
+    
     const userAlreadyExists = await this.usersRepository.checkEmailAlreadyExist(email);
+        
     if(userAlreadyExists) {
       throw new AppError('user already exists with email!', 400);
     }
 
     const user = new Users(name, email, password);
-
+    
     await this.usersRepository.create(user);
   }
 }
