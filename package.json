@@ -7,7 +7,6 @@
     "@neondatabase/serverless": "^0.9.0",
     "@types/uuid": "^9.0.8",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.30.3",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
     "genrate": "^0.0.11",
@@ -34,10 +33,7 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    
     "users": "drizzle-kit generate:pg --config=drizzle.config.ts",
-    "migration:push": "drizzle-kit push:pg --config=drizzle.config.ts",
-    "studio": "drizzle-kit studio",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only  --ignore-watch node_modules --respawn src/shared/infra/http/server.ts "
   }
 }

@@ -1247,11 +1247,6 @@ drizzle-kit@^0.20.14:
     semver "^7.5.4"
     zod "^3.20.2"
 
-drizzle-orm@^0.30.3:
-  version "0.30.4"
-  resolved "https://registry.yarnpkg.com/drizzle-orm/-/drizzle-orm-0.30.4.tgz#8f8ae1df645bafd48d4b827b98b32153cdded19a"
-  integrity sha512-kWoSMGbrOFkmkAweLTFtHJMpN+nwhx89q0mLELqT2aEU+1szNV8jrnBmJwZ0WGNp7J7yQn/ezEtxBI/qzTSElQ==
-
 dynamic-dedupe@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/dynamic-dedupe/-/dynamic-dedupe-0.3.0.tgz#06e44c223f5e4e94d78ef9db23a6515ce2f962a1"
