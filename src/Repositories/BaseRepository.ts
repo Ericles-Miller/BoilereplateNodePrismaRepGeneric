@@ -1,26 +1,14 @@
 import { injectable } from "inversify";
-
-import { createDecoratorProxy } from "Entities/Decorator";
 import { IBaseRepository } from "./IBaseRepository";
+import { Post, User } from "@prisma/client";
+import { RepositoryType } from "@shared/infra/http/GambiarraPrisma";
 
 @injectable()
-export class BaseRepository<T> extends createDecoratorProxy<T>([
-  "aggregate",
-  "count",
-  "create",
-  "createMany",
-  "delete",
-  "findFirst",
-  "findFirstOrThrow",
-  "findMany",
-  "findUnique",
-  "findUniqueOrThrow",
-  "update",
-  "updateMany",
-  "upsert",
-]) {
-  constructor(private target: T) {
-    super(target);
+export class BaseRepository<T extends User | Post> implements IBaseRepository<T> {
+  protected readonly repository: RepositoryType<T>;
+
+  constructor(repository: RepositoryType<T>) {
+    this.repository = repository;
   }
 
   async findById<T>(id: string): Promise<T> {
