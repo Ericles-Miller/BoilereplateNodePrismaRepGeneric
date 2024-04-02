@@ -1,31 +1,48 @@
 import { Post } from "Entities/Post";
 import { IBaseRepository } from "./IBaseRepository";
 import { injectable } from "inversify";
-import { Users } from "Entities/User";
-import { Drizzle  } from "drizzle-orm";
+import { Kysely } from 'kysely'
+import { Database, PostRow, UserRow } from "@shared/infra/database/schema";
+
 
 @injectable()
-export class BaseRepository<T> implements IBaseRepository<T> {
-  protected readonly repository: Drizzle<Users | Post>;
+export class BaseRepository<T extends UserRow | PostRow, U extends 'users' | 'posts'> implements IBaseRepository<T> {
+  protected readonly table: U; // preciso saber como vou lidar com isso 
 
-  constructor(repository: Drizzle<Users | Post>) {
-    this.repository = repository;
+  protected readonly db: Kysely<Database>
+
+  constructor(db: Kysely<Database>, table: U) {
+    this.table = table;
+    this.db = db;
+  }
+
+  async findAll(): Promise<T[]> {
+    const context = await this.db.selectFrom(this.table).execute();
+    return context;
   }
 
   async findById(id: string): Promise<T | null> {
-    return await this.repository.findOne({ where: { id } });
+    const context = await this.db
+    .selectFrom(this.table)
+    .where('id', '=', id)
+    .selectAll(`${this.table}`)
+    .executeTakeFirst();
+
+    return context;
   }
 
-  async create(data: T): Promise<void> {
-    await this.repository.create(data);
+  async create(entity: InsertTableUserRow): Promise<void> {
+    const insertedUser = await this.db
+    .insertInto(this.table)
+    .values(entity)
+    .returningAll()
+    .executeTakeFirstOrThrow()
+
+    return insertedUser
   }
 
-  async listAll(): Promise<T[]> {
-    return await this.repository.findMany();
+  async update(id: number, entity: T): Promise<void> {
+    await this.kysely.queryBuilder().update(this.tableName).set(entity).where('id', id).execute();
   }
 
-  async update(id: string, data: Partial<T>): Promise<T | null> {
-    await this.repository.update({ where: { id }, data });
-    return await this.findById(id);
-  }
 }

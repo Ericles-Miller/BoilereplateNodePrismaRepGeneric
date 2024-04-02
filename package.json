@@ -11,7 +11,8 @@
     "express-async-errors": "^3.1.1",
     "genrate": "^0.0.11",
     "inversify": "^6.0.2",
-    "pg": "^8.11.3",
+    "kysely": "^0.27.3",
+    "pg": "^8.11.4",
     "postgres": "^3.4.3",
     "reflect-metadata": "^0.2.1",
     "uuid": "^9.0.1"
@@ -33,7 +34,7 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "users": "drizzle-kit generate:pg --config=drizzle.config.ts",
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only  --ignore-watch node_modules --respawn src/shared/infra/http/server.ts "
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only  --ignore-watch node_modules --respawn src/shared/infra/http/server.ts ",
+    "migrate:latest": "ts-node-dev src/shared/infra/database/migrations/db.ts"
   }
 }
