@@ -1,23 +1,22 @@
 import { inject, injectable } from 'inversify';
 
-import { PrismaClient, User } from '@prisma/client';
-
 import { BaseRepository } from './BaseRepository';
 import { IUsersRepository } from './IUsersRepository';
+import { PrismaClient, Users } from '@prisma/client';
+import { prisma } from '@shared/infra/database';
 
 
 @injectable()
-export class UsersRepository extends BaseRepository<User> implements IUsersRepository {
+export class UsersRepository extends BaseRepository<Users> implements IUsersRepository {
   constructor(
-    @inject('PrismaClientUser')
-    private readonly prisma: PrismaClient,
+    @inject('PrismaClient')
+    prisma: PrismaClient
   ) {
-    super(prisma.user);
+    super(prisma.users);
   }
-  async checkEmailAlreadyExist(email: string): Promise<User | null> {
-    const user = await this.prisma.user.findFirst({
-      where: {email}
-    })
+
+  async checkEmailAlreadyExist(email: string) : Promise<Users|null> {
+    const user = await prisma.users.findFirst({ where: { email }})
 
     return user;
   }

@@ -1,13 +1,13 @@
 import { injectable } from "inversify";
 import { IBaseRepository } from "./IBaseRepository";
-import { Post, User } from "@prisma/client";
-import { RepositoryType } from "@shared/infra/http/GambiarraPrisma";
+import { Users, Posts } from "@prisma/client";
+import { RepositoryType } from "@shared/infra/database";
 
 @injectable()
-export class BaseRepository<T extends User | Post> implements IBaseRepository<T> {
+export class BaseRepository<T extends Users | Posts> implements IBaseRepository<T> {
   protected readonly repository: RepositoryType<T>;
 
-  constructor(repository: RepositoryType<T>) {
+  constructor(repository: RepositoryType<T> ) {  
     this.repository = repository;
   }
 

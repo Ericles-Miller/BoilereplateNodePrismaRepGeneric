@@ -1,6 +1,6 @@
 import { IBaseRepository } from './IBaseRepository';
-import { User } from '@prisma/client';
+import { Users } from '@prisma/client';
 
-export interface IUsersRepository extends IBaseRepository<User> {
-  checkEmailAlreadyExist(email: string) : Promise<User | null>
+export interface IUsersRepository extends IBaseRepository<Users> {
+  checkEmailAlreadyExist(email: string) : Promise<Users | null>
 }

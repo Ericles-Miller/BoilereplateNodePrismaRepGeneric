@@ -14,7 +14,7 @@ interface IRequestDTO {
 @injectable()
 export class UsersService {
   constructor(
-    @inject('IUsersRepository')
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 
@@ -25,8 +25,9 @@ export class UsersService {
     if(userAlreadyExists) {
       throw new AppError('user already exists with email!', 400);
     }
-
+    
     const user = new Users(name, email, password);
+    console.log(user);
     
     await this.usersRepository.create(user);
   }

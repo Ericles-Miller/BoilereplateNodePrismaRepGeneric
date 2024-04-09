@@ -1,4 +1,5 @@
-import { PrismaClient, User } from "@prisma/client";
+import { Posts, PrismaClient, Users } from "@prisma/client";
+import { prisma } from "@shared/infra/database";
 import { UsersService } from "Controllers/UsersService";
 import { Container } from "inversify";
 import { BaseRepository } from "Repositories/BaseRepository";
@@ -7,7 +8,9 @@ import { UsersRepository } from "Repositories/UsersRepository";
 
 export const container = new Container();
 
-container.bind<IUsersRepository>("IUsersRepository").to(UsersRepository).inSingletonScope();
-container.bind<UsersService>(UsersService).toSelf();
-container.bind<Prisma.ModelName>('PrismaClientUser').toConstantValue(new PrismaClient().user);
-container.bind(BaseRepository).to(BaseRepository);
+container.bind<IUsersRepository>(UsersRepository).toSelf().inSingletonScope();
+container.bind<BaseRepository<Users>>('UsersRepository').to(UsersRepository)
+//container.bind<BaseRepository<Posts>>('PostRepository').to(PostRepository)
+container.bind<PrismaClient>('PrismaClient').toConstantValue(prisma);
+
+container.bind<UsersService>(UsersService).toSelf()

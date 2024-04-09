@@ -1,11 +1,8 @@
 import { Base } from "./Base";
 
 export class Post extends Base {
-
   title: string;
-
   content: string;
-
   author: string;
 
   constructor(title: string, content: string, author: string) {

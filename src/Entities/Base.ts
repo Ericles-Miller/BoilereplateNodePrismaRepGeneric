@@ -2,17 +2,15 @@ import {v4 as uuid} from 'uuid';
 
 export class Base {
   id: string;
-
   createdAt!: Date;
-
-  updatedAt?: Date;
-
+  updatedAt: Date | null;
   enable!: boolean;
 
   constructor() {
     this.id = uuid();
     this.createdAt = new Date();
     this.enable = true;
+    this.updatedAt = null;
   }
 
   
@@ -20,7 +18,7 @@ export class Base {
     this.updatedAt = new Date();
   }
 
-  getUpdatedAt(): Date | undefined {
+  getUpdatedAt(): Date | null {
     return this.updatedAt;
   }
 }
