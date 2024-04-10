@@ -3,7 +3,7 @@ import { UsersService } from "./UsersService";
 import { container } from "@shared/IoC";
 
 
-export class UserController {
+export class UsersController {
   async handle(request: Request, response: Response) : Promise<Response> {
     const { name, email, password } = request.body;
 

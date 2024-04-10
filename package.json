@@ -4,9 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.4",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.24.1",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-typescript": "^7.24.1",
     "@neondatabase/serverless": "^0.9.0",
     "@prisma/client": "5.11.0",
     "@types/uuid": "^9.0.8",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
@@ -34,9 +42,8 @@
     "typescript": "^5.2.2"
   },
   "scripts": {
-    "users": "drizzle-kit generate:pg --config=drizzle.config.ts",
-    "migration:push": "drizzle-kit push:pg --config=drizzle.config.ts",
-    "studio": "drizzle-kit studio",
+    "start": "node build/shared/infra/http/server.js",
+    "build": "babel src --out-dir build --copy-files --extensions \".js,.ts\"",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only  --ignore-watch node_modules --respawn src/shared/infra/http/server.ts "
   }
 }

@@ -1,8 +1,7 @@
+import { Users } from "@entities/User";
+import { IUsersRepository } from "@repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError";
-import { Users } from "Entities/User";
 import { inject, injectable } from "inversify";
-import { IUsersRepository } from "Repositories/IUsersRepository";
-import { UsersRepository } from "Repositories/UsersRepository";
 
 interface IRequestDTO {
   name: string;
@@ -26,9 +25,7 @@ export class UsersService {
       throw new AppError('user already exists with email!', 400);
     }
     
-    const user = new Users(name, email, password);
-    console.log(user);
-    
+    const user = new Users(name, email, password);    
     await this.usersRepository.create(user);
   }
 }

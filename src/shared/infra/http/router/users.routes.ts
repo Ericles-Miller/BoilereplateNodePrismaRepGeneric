@@ -1,11 +1,10 @@
+import { UsersController } from "@controllers/UserController";
 import { Router } from "express";
-import { router } from ".";
-import { UserController } from "Controllers/UserController";
 
 
 
 export const usersRoutes = Router();
 
-const usersController = new UserController();
+const usersController = new UsersController();
 
 usersRoutes.post('/', usersController.handle)
