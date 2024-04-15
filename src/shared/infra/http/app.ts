@@ -13,7 +13,7 @@ import { router } from "./router";
 
 export const app = express();
 
-const certPath = path.resolve(__dirname, '../../../../certificado.cert'); // Caminho relativo aos arquivos de entrada do TypeScript
+const certPath = path.resolve(__dirname, '../../../../certificado.cert'); 
 const keyPath = path.resolve(__dirname, '../../../../certificado.key');
 
 const options: https.ServerOptions = {
