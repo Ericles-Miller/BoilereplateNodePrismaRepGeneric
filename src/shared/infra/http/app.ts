@@ -3,12 +3,25 @@ import "reflect-metadata";
 import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
 import { AppError } from "@shared/errors/AppError";
+import * as path from 'path'; 
+import * as fs from 'fs';
+import * as https from 'https';
 
 import { router } from "./router";
 
 
 
 export const app = express();
+
+const certPath = path.resolve(__dirname, '../../../../certificado.cert'); // Caminho relativo aos arquivos de entrada do TypeScript
+const keyPath = path.resolve(__dirname, '../../../../certificado.key');
+
+const options: https.ServerOptions = {
+  key: fs.readFileSync(keyPath),
+  cert: fs.readFileSync(certPath)
+};
+
+export const server = https.createServer(options, app);
 
 
 app.use(express.json());
