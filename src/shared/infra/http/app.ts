@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import "reflect-metadata";
 import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
@@ -8,24 +7,25 @@ import * as fs from 'fs';
 import * as https from 'https';
 
 import { router } from "./router";
-
-
+import cors from "cors";
 
 export const app = express();
 
-const certPath = path.resolve(__dirname, '../../../../certificado.cert'); 
-const keyPath = path.resolve(__dirname, '../../../../certificado.key');
+const certPath = path.resolve(__dirname, '../../SSL/code.crt'); 
+const keyPath = path.resolve(__dirname, '../../SSL/code.key');
 
 const options: https.ServerOptions = {
   key: fs.readFileSync(keyPath),
   cert: fs.readFileSync(certPath)
 };
 
-export const server = https.createServer(options, app);
-
 
 app.use(express.json());
+app.use(cors())
 app.use(router);
+
+https.createServer(options, app).listen(3334, ()=> 'Server is running in https');
+
 
 app.use(
   (err: Error, request: Request, response: Response, next: NextFunction) => {

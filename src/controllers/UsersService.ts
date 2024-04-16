@@ -1,4 +1,4 @@
-import { Users } from "@entities/User";
+import { Users } from "@prisma/client";
 import { IUsersRepository } from "@repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError";
 import { inject, injectable } from "inversify";
@@ -27,5 +27,11 @@ export class UsersService {
     
     const user = new Users(name, email, password);    
     await this.usersRepository.create(user);
+  }
+
+  async list(): Promise<Users[]> {
+    const users = await this.usersRepository.listAll();
+
+    return users;
   }
 }

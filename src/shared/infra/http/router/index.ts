@@ -1,4 +1,4 @@
-import { Router } from "express";
+import { response, Router } from "express";
 import { usersRoutes } from "./users.routes";
 
 export const router = Router();

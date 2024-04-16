@@ -14,4 +14,11 @@ export class UsersController {
     return response.status(201).send();
 
   }
+
+  async list(request: Request, response: Response) : Promise<Response> {
+    const usersService = container.get(UsersService);
+
+    const users = await usersService.list();
+    return response.json(users);
+  }
 }
