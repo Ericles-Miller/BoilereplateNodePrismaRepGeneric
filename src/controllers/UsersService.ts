@@ -1,3 +1,4 @@
+import { User } from "@entities/User";
 import { Users } from "@prisma/client";
 import { IUsersRepository } from "@repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError";
@@ -25,7 +26,7 @@ export class UsersService {
       throw new AppError('user already exists with email!', 400);
     }
     
-    const user = new Users(name, email, password);    
+    const user = new User(name, email, password);    
     await this.usersRepository.create(user);
   }
 
