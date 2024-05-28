@@ -1,2 +1,1 @@
-# boilerplateTsWithPrisma
-# boilerplateTsWithPrisma
+# boilerplateTsWithPris
